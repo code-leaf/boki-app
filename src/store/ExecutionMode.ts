@@ -1,11 +1,5 @@
-import { atom } from 'recoil';
+import { atom } from 'jotai';
 
-export const executionModeTypeAtom = atom<'unlimited' | 'limited'>({
-  key: 'executionModeType', // 一意のキー
-  default: 'unlimited', // 初期値
-});
+export const executionModeTypeAtom = atom<'unlimited' | 'limited'>('unlimited');
 
-export const executionLimitCountAtom = atom<number>({
-  key: 'executionLimitCount', // 一意のキー
-  default: 5, // 初期値
-});
+export const executionLimitCountAtom = atom<number>(5);

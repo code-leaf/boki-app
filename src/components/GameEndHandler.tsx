@@ -1,7 +1,9 @@
+'use client';
+
 import { FinalScore } from '@/components/FinalScore';
 import { executionLimitCountAtom } from '@/store/ExecutionMode';
 import { SetStateAction, useEffect, useState } from 'react';
-import { useRecoilState } from 'recoil';
+import { useAtom } from 'jotai';
 
 type GameEndHandlerProps = {
   totalQuestions: number;
@@ -21,7 +23,7 @@ export const GameEndHandler = ({
   children,
 }: GameEndHandlerProps) => {
   // 実行制限回数の状態を管理
-  const [executionLimitCount, setExecutionLimitCount] = useRecoilState(
+  const [executionLimitCount, setExecutionLimitCount] = useAtom(
     executionLimitCountAtom
   );
 

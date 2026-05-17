@@ -1,8 +1,10 @@
+'use client';
+
 import {
   executionLimitCountAtom,
   executionModeTypeAtom,
 } from '@/store/ExecutionMode';
-import { useRecoilValue } from 'recoil';
+import { useAtomValue } from 'jotai';
 
 type ScoreDisplayProps = {
   score: number;
@@ -10,8 +12,8 @@ type ScoreDisplayProps = {
 };
 
 export const ScoreDisplay = ({ score, totalQuestions }: ScoreDisplayProps) => {
-  const modeType = useRecoilValue(executionModeTypeAtom);
-  const limitCount = useRecoilValue(executionLimitCountAtom);
+  const modeType = useAtomValue(executionModeTypeAtom);
+  const limitCount = useAtomValue(executionLimitCountAtom);
 
   const modeText = modeType === 'unlimited' ? '無制限' : '回数指定';
 

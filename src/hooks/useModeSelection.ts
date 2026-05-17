@@ -2,15 +2,15 @@ import {
   executionLimitCountAtom,
   executionModeTypeAtom,
 } from '@/store/ExecutionMode';
-import { useRecoilState } from 'recoil';
+import { useAtom } from 'jotai';
 
 type MODE = 'unlimited' | 'limited';
 
 export const useModeSelection = () => {
-  const [selectedMode, setSelectedMode] = useRecoilState<MODE>(
+  const [selectedMode, setSelectedMode] = useAtom<MODE>(
     executionModeTypeAtom
   );
-  const [rounds, setRounds] = useRecoilState<number>(executionLimitCountAtom);
+  const [rounds, setRounds] = useAtom<number>(executionLimitCountAtom);
 
   // モードの変更
   const handleModeSelect = (mode: MODE) => {

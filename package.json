@@ -9,12 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "jotai": "^2.20.0",
     "lucide-react": "^0.441.0",
     "next": "15.5.18",
     "react": "^18",
     "react-circular-progressbar": "^2.1.0",
-    "react-dom": "^18",
-    "recoil": "^0.7.7"
+    "react-dom": "^18"
   },
   "devDependencies": {
     "@types/node": "^20",
