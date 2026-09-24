@@ -5,6 +5,15 @@ updates:
     schedule:
       interval: "weekly"
     groups:
-      npm-dependencies:
+      # 小さな更新（マイナー・パッチ）はまとめて1つのPRにする
+      minor-and-patch-updates:
+        applies-to: version-updates
+        update-types:
+          - "minor"
+          - "patch"
+      # 脆弱性の修正は別のグループとしてまとめて1つのPRにする
+      security-updates:
+        applies-to: security-updates
         patterns:
           - "*"
+    # メジャー（1つ目の数字が上がる）更新はグループ化せず個別のPRのままにする
