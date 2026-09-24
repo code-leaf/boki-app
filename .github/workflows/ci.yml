@@ -24,4 +24,5 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: ビルドとテストを実行
+        timeout-minutes: 10
         run: yarn test
