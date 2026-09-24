@@ -1,0 +1,39 @@
+name: Dependabotの自動ラベル付け
+
+# Dependabotが作ったPRの更新の種類を調べ、大きな更新を含まないものにだけ
+# 「automerge」ラベルを付ける
+on:
+  pull_request_target:
+    types: [opened, synchronize, reopened]
+
+permissions:
+  pull-requests: write
+  contents: read
+
+jobs:
+  label:
+    if: github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Dependabotの更新内容を取得
+        id: metadata
+        uses: dependabot/fetch-metadata@v3.1.0
+        with:
+          github-token: '${{ secrets.GITHUB_TOKEN }}'
+
+      - name: automergeラベルがなければ作成
+        if: steps.metadata.outputs.update-type != 'version-update:semver-major'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh label create automerge \
+            --color 0E8A16 \
+            --description "テストに通れば自動でマージする" \
+            --force
+
+      - name: 大きな更新を含まないPRにautomergeラベルを付与
+        if: steps.metadata.outputs.update-type != 'version-update:semver-major'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+        run: gh pr edit "$PR_URL" --add-label automerge
