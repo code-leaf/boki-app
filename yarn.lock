@@ -615,10 +615,10 @@ jiti@^1.21.0:
   resolved "https://registry.npmjs.org/jiti/-/jiti-1.21.6.tgz"
   integrity sha512-2yTgeWTWzMWkHu6Jp9NKgePDaYHbntiwvYuuJLbbN9vl7DC9DvXKOB2BC3ZZ92D3cvV/aflH0osDfwpHepQ53w==
 
-jotai@^2.20.0:
-  version "2.20.0"
-  resolved "https://registry.npmjs.org/jotai/-/jotai-2.20.0.tgz"
-  integrity sha512-b5GAqgmXmXzB4WPaTH26ppk9Sl7AA9WSQX7yfdM+gJ1rFROiWcVbi97gFuN/yVCojOcbcvop2sfLL+fjxW0JVg==
+jotai@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/jotai/-/jotai-3.0.0.tgz#701c411dde5b1e43aeff67f3fe61b9758490c8ea"
+  integrity sha512-KxhbmsJUp/tmrv6aZgO+nzB3H9K8C0xmk5i3aGkwy/EANg73DVBkggv3zVHaAi5PlNlQgTgP4uiVepo+JC+wSA==
 
 "js-tokens@^3.0.0 || ^4.0.0":
   version "4.0.0"
