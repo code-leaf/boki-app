@@ -8,28 +8,28 @@
     "start": "next start"
   },
   "dependencies": {
-    "jotai": "^2.20.0",
-    "lucide-react": "^0.441.0",
-    "next": "^15.5.24",
-    "react": "^18",
+    "jotai": "^3.0.0",
+    "lucide-react": "^1.47.0",
+    "next": "^16.3.5",
+    "react": "^19",
     "react-circular-progressbar": "^2.1.0",
-    "react-dom": "^18"
+    "react-dom": "^19"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "postcss": "^8.5.26",
-    "tailwindcss": "^3.4.1",
-    "typescript": "^5"
+    "@types/node": "^26",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "postcss": "^8.5.28",
+    "tailwindcss": "^4.3.3",
+    "typescript": "^7"
   },
   "resolutions": {
-    "next": "^15.5.24",
+    "next": "^16.3.5",
     "glob": "^10.5.0",
     "minimatch": "^10.2.6",
     "flatted": "^3.4.2",
     "picomatch": "^2.3.2",
-    "postcss": "^8.5.26",
+    "postcss": "^8.5.28",
     "brace-expansion": "^5.0.9",
     "nanoid": "^3.3.18",
     "ajv": "^6.14.0",
