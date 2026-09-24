@@ -28,7 +28,7 @@
   },
   "resolutions": {
     "next": "^15.5.24",
-    "js-yaml": "^4.3.1",
+    "js-yaml": "^4.3.2",
     "glob": "^10.5.0",
     "minimatch": "^10.2.6",
     "flatted": "^3.4.2",
