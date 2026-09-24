@@ -3,14 +3,20 @@
 import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const NEXT_BIN = path.join(__dirname, '..', 'node_modules', '.bin', 'next');
 
 const PORT = process.env.SMOKE_TEST_PORT || '4310';
 const BASE_URL = `http://localhost:${PORT}`;
 
 let serverProcess;
+let serverOutput = '';
 
 // next start でアプリを起動し、応答が返るまで待つ
-async function waitForServer(url, timeoutMs = 60000) {
+async function waitForServer(url, timeoutMs = 45000) {
   const start = Date.now();
   while (Date.now() - start < timeoutMs) {
     try {
@@ -21,18 +27,27 @@ async function waitForServer(url, timeoutMs = 60000) {
     }
     await new Promise((r) => setTimeout(r, 500));
   }
-  throw new Error(`サーバーが ${timeoutMs}ms 以内に起動しませんでした`);
+  throw new Error(
+    `サーバーが ${timeoutMs}ms 以内に起動しませんでした\n--- サーバーの出力 ---\n${serverOutput}`
+  );
 }
 
 before(async () => {
-  serverProcess = spawn('npx', ['next', 'start', '-p', PORT], {
-    stdio: 'pipe',
+  serverProcess = spawn(NEXT_BIN, ['start', '-p', PORT], {
+    env: { ...process.env, NEXT_TELEMETRY_DISABLED: '1' },
+    stdio: ['ignore', 'pipe', 'pipe'],
+  });
+  serverProcess.stdout.on('data', (d) => {
+    serverOutput += d.toString();
+  });
+  serverProcess.stderr.on('data', (d) => {
+    serverOutput += d.toString();
   });
   await waitForServer(BASE_URL);
 });
 
 after(() => {
-  if (serverProcess) serverProcess.kill();
+  if (serverProcess) serverProcess.kill('SIGTERM');
 });
 
 const pages = [
@@ -45,15 +60,15 @@ const pages = [
   { path: '/quiz5', mustInclude: ['Loading...'] },
 ];
 
-for (const { path, mustInclude } of pages) {
-  test(`${path} が正常に表示される`, async () => {
-    const res = await fetch(`${BASE_URL}${path}`);
-    assert.equal(res.status, 200, `${path} は200を返すべき`);
+for (const { path: p, mustInclude } of pages) {
+  test(`${p} が正常に表示される`, async () => {
+    const res = await fetch(`${BASE_URL}${p}`);
+    assert.equal(res.status, 200, `${p} は200を返すべき`);
     const html = await res.text();
     for (const text of mustInclude) {
       assert.ok(
         html.includes(text),
-        `${path} のHTMLに "${text}" が含まれているべき`
+        `${p} のHTMLに "${text}" が含まれているべき`
       );
     }
   });
